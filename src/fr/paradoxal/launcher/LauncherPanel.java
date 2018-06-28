@@ -29,7 +29,7 @@ import fr.theshark34.swinger.textured.STexturedButton;
 public class LauncherPanel extends JPanel implements SwingerEventListener {
 
 	private Image background = getResource("back.png");
-	private Saver saver = new Saver(new File(InfoLauncher.P_DIR,"launcher.properties"));
+	public Saver saver = new Saver(new File(InfoLauncher.P_DIR,"launcher.properties"));
 	
 	private JTextField usernamefield = new JTextField(this.saver.get("username"));
 	
@@ -38,7 +38,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 	private STexturedButton reducebutton = new STexturedButton(getResource("reduce.png"));
 	private SColoredBar progressBar = new SColoredBar(getTransparentWhite(100),getTransparentWhite(175));
 	
-	private JLabel infolabel = new JLabel("Clique sur Fight ! ",SwingConstants.CENTER);
+	private JLabel infolabel = new JLabel("Cliqu√©e sur Fight ! ",SwingConstants.CENTER);
 	private STexturedButton rambutton  = new STexturedButton(getResource("settings.png"));
 	
 	public LauncherPanel() {
@@ -49,7 +49,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 		usernamefield.setCaretColor(Color.BLACK);
 		usernamefield.setOpaque(false);
 		usernamefield.setBorder(null);
-		usernamefield.setBounds(715, 233, 238, 25);
+		usernamefield.setBounds(740, 340, 238, 25);
 		this.add(usernamefield);
 		
 		playbutton.setBounds(740, 400);
@@ -85,7 +85,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 			setFieldEnabled(false);
 			if(usernamefield.getText().replaceAll(" ", "").length()==0)
 			{
-				JOptionPane.showMessageDialog(this, "Erreur, veuilliez entrÈe un Pseudo  valides", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Erreur, veuilliez entr√©e un Pseudo  valides", "Erreur", JOptionPane.ERROR_MESSAGE);
 				setFieldEnabled(true);
 				return;
 			}
@@ -94,7 +94,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 				@Override
 				public void run() {
 					try {
-						Launcher.auth();
+						Launcher.auth(usernamefield.getText());
 					} catch (AuthenticationException e) {
 						JOptionPane.showMessageDialog(LauncherPanel.this, "Erreur, imposible de ce connecter: "+e.getErrorModel().getErrorMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 						setFieldEnabled(true);
@@ -105,7 +105,7 @@ public class LauncherPanel extends JPanel implements SwingerEventListener {
 						Launcher.update();
 					} catch (Exception e) {
 						Launcher.interruptThread();
-						Launcher.getCrashReporter().catchError(e, "Impossible de mettre ‡ jour Paradoxal !");			
+						Launcher.getCrashReporter().catchError(e, "Impossible de mettre √† jour Paradoxal !");			
 						setFieldEnabled(true);
 						return;
 					}
